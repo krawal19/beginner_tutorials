@@ -1,5 +1,6 @@
-<h1>ROS Beginner Tutorial - Publisher and Subscriber </h1>
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
+<h1>ROS Beginner Tutorial - Publisher and Subscriber </h1>
 
 </p>
 <p align="center">
