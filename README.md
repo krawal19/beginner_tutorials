@@ -42,7 +42,7 @@ $ catkin_make
 ## Running Instructions
 To start roscore, open a new terminal window and run following command
 ```
-source /opt/ros/kinetic/setup.bash
+$ source /opt/ros/kinetic/setup.bash
 $ roscore
 ```
 To run talker node, open a new terminal window and run following command
@@ -60,7 +60,7 @@ $ rosrun beginner_tutorials listener
 ## Graphical visualization of ROS Nodes
 Open a new terminal and run following command
 ```
-rqt_graph
+$ rqt_graph
 ```
 <p align="center">
 <img src="Images/rqt_graph.jpg" width="70%" height="70%">
