@@ -61,8 +61,8 @@ extern std::string msgSent = "Did you pass 808x? ";
  *
  *  @return true service function executed
  */
-bool change(beginner_tutorials::changeBaseString::Request &req,
-            const beginner_tutorials::changeBaseString::Response &res) {
+bool change(beginner_tutorials::serviceFile::Request &req,
+            const beginner_tutorials::serviceFile::Response &res) {
   msgSent = msgSent + req.newString;
   return true;
 }
