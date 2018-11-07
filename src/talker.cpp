@@ -101,22 +101,17 @@ int main(int argc, char **argv) {
   }
   /// Creating a handle to process
   ros::NodeHandle n;
-  
   /// defines the topic and type of message on which the
   /// publisher is going to publish data
   ros::Publisher chatter_pub = n.advertise < std_msgs::String
       > ("chatter", 1000);
-  
   /// defining service server
   ros::ServiceServer server = n.advertiseService("changeString", change);
-  
   /// Rate of loop running.
   ros::Rate loop_rate(10);
-  
   /// Number of messages that have been sent.
   int count = 0;
   while (ros::ok()) {
-
     /// Creating a message object to stuff data and then publish it.
     std_msgs::String msg;
     std::stringstream ss;
