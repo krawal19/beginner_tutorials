@@ -1,0 +1,5 @@
+#INPUT
+string newString
+---
+#OUTPUT
+string changedString
