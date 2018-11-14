@@ -31,7 +31,7 @@ To install ROS, follow the instructions on this [link](http://wiki.ros.org/kinet
 #### Build Catkin Workspace
 Open terminal and run the following command to clone this repository in it
 ```
-$ git clone -b Week10_HW https://github.com/krawal19/beginner_tutorials.git catkin_ws/src/beginner_tutorials
+$ git clone -b Week11_HW https://github.com/krawal19/beginner_tutorials.git catkin_ws/src/beginner_tutorials
 $ cd catkin_ws
 ```
 #### Build the package
@@ -45,13 +45,13 @@ To run code using launch command, open a new terminal window and run following c
 ```
 $ cd <path to catkin_ws>
 $ source devel/setup.bash
-$ rosrun beginner_tutorials launchFile.launch
+$ roslaunch beginner_tutorials launchFile.launch
 ```
 To run the launch command using arguments
 ```
 $ cd <path to catkin_ws>
 $ source devel/setup.bash
-$ rosrun beginner_tutorials launchFile.launch result:=passed
+$ roslaunch beginner_tutorials launchFile.launch result:=passed
 ```
 To run each node separately using roscore , open a new terminal window and run following command
 ```
@@ -74,14 +74,100 @@ $ rosrun beginner_tutorials listener
 To run talker node service, type the following in a new terminal after starting roscore and talker node from the methods mentioned above.
 After running the command the publisher message will change to "Text for simple" as mentioned in input string.
 ```
-rosservice call /changeString Igotpassed
+rosservice call /serviceFile Igotpassed
 ```
+## TF frames
+Use the below command to inspect TF frames /talk and / world. Talker node broadcast tf transform to talk frame with world frame as parent. Here tf_echo reports the transform between any two frames broadcast over ROS.
+```
+rosrun tf tf_echo /world /talk
+```
+Running the above comand will give the similar output as shown below
+```
+At time 1542158681.347
+- Translation: [-1.413, 0.061, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.932, -0.363]
+            in RPY (radian) [0.000, -0.000, -2.399]
+            in RPY (degree) [0.000, -0.000, -137.479]
+At time 1542158681.947
+- Translation: [1.181, 0.779, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.632, 0.775]
+            in RPY (radian) [0.000, -0.000, 1.368]
+            in RPY (degree) [0.000, -0.000, 78.408]
+At time 1542158682.947
+- Translation: [1.183, 0.775, 0.000]
+- Rotation: in Quaternion [0.000, 0.000, 0.631, 0.776]
+            in RPY (radian) [0.000, -0.000, 1.365]
+            in RPY (degree) [0.000, -0.000, 78.230]
+```
+To visualize frames we use the below command.
+Use the below command to visualize frames using rqt
+```
+rosrun rqt_tf_tree rqt_tf_tree
+```
+Or to generate a pdf for visulisation use below command
+```
+$ cd <path to store the pdf>
+rosrun tf view_frames
+```
+To view the tree pdf
+```
+$ cd<path where above command was executed>
+evince frames.pdf
+```
+view_frames creates a diagram of the frames being broadcast by tf over ROS. Here we can see the two frames /world and /talk that are broadcast by the tf. In addition to this diagnostic information is also available such as oldest and most recent frame transforms time and also the rate of tf frame publishing.
+
+## rostest
+The Level 2 integration test is written using gtest and rostest. follow the command below to run the rostest
+```
+$ cd <path to catkin Workspace>
+catkin_make run_tests_beginner_tutorials
+```
+Or test using launch file
+```
+rostest beginner_tutorials testTalk.launch
+```
+By running command the above command output will be as shown below
+```
+[Testcase: testtestTalk] ... ok
+
+[ROSTEST]-----------------------------------------------------------------------
+
+[beginner_tutorials.rosunit-testTalk/change][passed]
+[beginner_tutorials.rosunit-testTalk/testChangeTestService][passed]
+
+SUMMARY
+ * RESULT: SUCCESS
+ * TESTS: 2
+ * ERRORS: 0
+ * FAILURES: 0
+
+rostest log file is in /home/kapil/.ros/log/rostest-kapil-11139.log
+```
+## Recording rosbag file
+To record a bag file with the contents of specified topics using launch command. Follow the command given below. Here the bag file will be stored in the results folder.
+```
+roslaunch beginner_tutorials launchFile.launch record:=true
+```
+To view the summary of the contents in the bag file, use the command below
+```
+rosbag info bagfilename
+```
+Note:Data of ~15 seconds is recorded using the above command.
+
+## Playing rosbag file
+To run the previous recorded bag file follow the commands below. Run roscore and listener node by using the methods above
+```
+$ cd <path to where bag file is stored>
+rosbag play bagDataFile.bag
+```
+After running the above command listener node will show the output of the data recorded in bag file.
 
 ## Logging
 To visualise logger messages in Qt-based framework, run the commands below after running roscore and nodes as mentioned above
 ```
 rosrun rqt_console rqt_console
 ```
+
 ## Graphical visualization of ROS Nodes
 Open a new terminal and run following command
 ```
