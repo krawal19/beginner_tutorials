@@ -74,14 +74,15 @@ $ rosrun beginner_tutorials listener
 To run talker node service, type the following in a new terminal after starting roscore and talker node from the methods mentioned above.
 After running the command the publisher message will change to "Text for simple" as mentioned in input string.
 ```
-rosservice call /serviceFile Igotpassed
+$ source devel/setup.bash
+$ rosservice call /serviceFile Igotpassed
 ```
 ## TF frames
-Use the below command to inspect TF frames /talk and / world. Talker node broadcast tf transform to talk frame with world frame as parent. Here tf_echo reports the transform between any two frames broadcast over ROS.
+While the above process is running use the below command to inspect TF frames /talk and / world. Talker node broadcast tf transform to talk frame with world frame as parent. Here tf_echo reports the transform between any two frames broadcast over ROS.
 ```
-rosrun tf tf_echo /world /talk
+$ rosrun tf tf_echo /world /talk
 ```
-Running the above comand will give the similar output as shown below
+Running the above command will give the similar output as shown below
 ```
 At time 1542158681.347
 - Translation: [-1.413, 0.061, 0.000]
@@ -99,32 +100,37 @@ At time 1542158682.947
             in RPY (radian) [0.000, -0.000, 1.365]
             in RPY (degree) [0.000, -0.000, 78.230]
 ```
-To visualize frames we use the below command.
+To visualize frames we use the below command in new terminal.
 Use the below command to visualize frames using rqt
 ```
-rosrun rqt_tf_tree rqt_tf_tree
+$ cd <path to repository>/catkin_ws
+$ source devel/setup.bash
+$ rosrun rqt_tf_tree rqt_tf_tree
 ```
 Or to generate a pdf for visulisation use below command
 ```
-$ cd <path to store the pdf>
-rosrun tf view_frames
+$ cd <path to repository>/results
+$ rosrun tf view_frames
 ```
 To view the tree pdf
 ```
-$ cd<path where above command was executed>
-evince frames.pdf
+$ cd <path to repository>/results
+$ evince frames.pdf
 ```
 view_frames creates a diagram of the frames being broadcast by tf over ROS. Here we can see the two frames /world and /talk that are broadcast by the tf. In addition to this diagnostic information is also available such as oldest and most recent frame transforms time and also the rate of tf frame publishing.
 
 ## rostest
-The Level 2 integration test is written using gtest and rostest. follow the command below to run the rostest
+The Level 2 integration test is written using gtest and rostest. Close all the running processes before executing the commands below to run the rostest.
 ```
 $ cd <path to catkin Workspace>
-catkin_make run_tests_beginner_tutorials
+$ source devel/setup.bash
+$ catkin_make run_tests_beginner_tutorials
 ```
 Or test using launch file
 ```
-rostest beginner_tutorials testTalk.launch
+$ cd <path to catkin Workspace>
+$ source devel/setup.bash
+$ rostest beginner_tutorials testTalk.launch
 ```
 By running command the above command output will be as shown below
 ```
@@ -146,26 +152,27 @@ rostest log file is in /home/kapil/.ros/log/rostest-kapil-11139.log
 ## Recording rosbag file
 To record a bag file with the contents of specified topics using launch command. Follow the command given below. Here the bag file will be stored in the results folder.
 ```
-roslaunch beginner_tutorials launchFile.launch record:=true
+$ roslaunch beginner_tutorials launchFile.launch record:=true
 ```
 To view the summary of the contents in the bag file, use the command below
 ```
-rosbag info bagfilename
+$ cd <path to repository>/results
+$ rosbag info bagDataFile.bag
 ```
 Note:Data of ~15 seconds is recorded using the above command.
 
 ## Playing rosbag file
-To run the previous recorded bag file follow the commands below. Run roscore and listener node by using the methods above
+Before running the previous recorded bag file close all the existing running processes and Run roscore and listener node by using the methods above. Then follow the commands below
 ```
-$ cd <path to where bag file is stored>
-rosbag play bagDataFile.bag
+$ cd <path to repository>/results
+$ rosbag play bagDataFile.bag
 ```
 After running the above command listener node will show the output of the data recorded in bag file.
 
 ## Logging
 To visualise logger messages in Qt-based framework, run the commands below after running roscore and nodes as mentioned above
 ```
-rosrun rqt_console rqt_console
+$ rosrun rqt_console rqt_console
 ```
 
 ## Graphical visualization of ROS Nodes
@@ -174,5 +181,5 @@ Open a new terminal and run following command
 $ rqt_graph
 ```
 <p align="center">
-<img src="Images/rqt_graph.jpg" width="70%" height="70%">
+<img src="Images/rqt_graph.png" width="70%" height="70%">
 </p>
