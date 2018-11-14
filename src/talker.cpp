@@ -106,7 +106,7 @@ int main(int argc, char **argv) {
 
   /// Declaring result as string
   std::string result;
- 
+
   message.msgSent = "Did you pass 808x? ";
 
   /// Checking if we have two arguments
