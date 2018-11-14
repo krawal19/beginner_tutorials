@@ -72,7 +72,7 @@ $ rosrun beginner_tutorials listener
 ```
 ## Service
 To run talker node service, type the following in a new terminal after starting roscore and talker node from the methods mentioned above.
-After running the command the publisher message will change to "Text for simple" as mentioned in input string.
+After running the command the publisher message will change as mentioned in input string.
 ```
 $ source devel/setup.bash
 $ rosservice call /serviceFile Igotpassed
